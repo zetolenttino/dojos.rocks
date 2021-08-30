@@ -1,0 +1,76 @@
+:root {
+    --cor-de-fundo: #acaca4
+}
+
+
+.caixa {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    background-color: var(--cor-de-fundo);
+}
+
+.logo-png {
+    margin:30px 0 30px 0px;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.divisao-central {
+    position: absolute;
+    top: 260px;
+    bottom: 0px;
+    width: 5px;
+    background: var(--cor-de-fundo);
+    left: 50%;
+    right: 50%;
+    z-index: 100;
+    cursor: move;
+}
+
+.divisao-atividades {
+    width: 50%;
+    
+}
+
+.atividades { 
+    width: 50%;
+    font-weight: bold;
+    font-size: 2em;
+    margin-bottom: 40px;
+    margin-left: 20px;
+}
+
+#atividade-left {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+#atividade-rigth {
+    position: absolute;
+    top: 354px;
+    width: 50%;
+    left: 52%;
+    right: 50%
+    
+}
+
+.input-padrao {
+    display: block;
+    margin: 0 0 20px;
+    padding: 10px 25px;
+    width: 50%;
+}
+
+footer {
+    text-align: center;
+    background: url(logo-rodape.png);
+    padding: 40px 0;
+
+}
+
+.copyright {
+    color: white;
+    font-size: 13px;
+    margin: 20px 0 0;
+}
