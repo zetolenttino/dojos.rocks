@@ -1,0 +1,22 @@
+#solucao {
+    display: flex;
+    flex-direction: column;
+    Width: 100%;
+    height: 100%;
+    padding: 8px;
+}
+
+.editor {
+    flex: 1;
+}
+
+.resultado {
+    padding: 8px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.sucesso-ou-falha {
+    background-color: green;
+    background-color: red;
+}
