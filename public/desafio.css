@@ -1,0 +1,7 @@
+#desafio {
+  display: flex;
+}
+
+#descricao {
+  flex-grow: 1;
+}

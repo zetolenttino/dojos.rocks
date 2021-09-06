@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="solucao.css">
+
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
 </head>
 
 <body>
@@ -20,6 +23,9 @@
         <div class="divisao">
             <div id="desafio">
                 <h1>Desafio</h1>
+                <div id="descricao">Descrição do desafio</div>
+                <h4>Exemplos</h4>
+                <pre id="exemplos">exemplos</pre>
             </div>
 
             <div id="solucao">
@@ -34,6 +40,39 @@
             </div>
         </div>
     </class>
+
+
+    <script type="module">
+
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyARHmNCT8e-TR4cwwdjmTpmJld1QgqbCeE",
+            authDomain: "dojos-rocks.firebaseapp.com",
+            projectId: "dojos-rocks",
+            storageBucket: "dojos-rocks.appspot.com",
+            messagingSenderId: "137316633486",
+            appId: "1:137316633486:web:2927bbd9aa3502e15ab2df",
+            measurementId: "G-7JG6178B1F"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = app.firestore();
+
+        const codigo = 'somar'
+        db.collection("desafios").doc(codigo).get()
+            .then((docRef) => {
+                const data = docRef.data()
+                document.getElementById('descricao').textContent = data.descricao
+                const exemplos = []
+                debugger
+                data.esperado.forEach((e) => {
+                    exemplos.push(codigo+ '(' + JSON.stringify(e.input) + ') == ' + JSON.stringify(e.output))
+                })
+                document.getElementById('exemplos').textContent = exemplos.join('\n')
+            })
+    </script>
 
 </body>
 
