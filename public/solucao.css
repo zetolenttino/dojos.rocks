@@ -21,9 +21,13 @@ h2 {
     padding: 8px;
     display: flex;
     justify-content: space-around;
+    height: 3em;
 }
 
-.sucesso-ou-falha {
+.sucesso {
     background-color: green;
+}
+
+.falha {
     background-color: red;
 }
