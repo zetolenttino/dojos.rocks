@@ -32,10 +32,14 @@
                 <div class="titulo-solucao">
                     <h2>Solução</h2>
                 </div>
-                <textarea class=editor></textarea>
+                <textarea class=editor>
+function imc({peso, altura}) {
+  return peso / (altura*altura)
+}
+                </textarea>
                 <div class="resultado">
-                    <input type="submit" value="enviar">
-                    <span class="sucesso-ou-falha">sucesso ou falha</span>
+                    <button>Executar</button>
+                    <span>sucesso ou falha</span>
                 </div>
             </div>
         </div>
@@ -60,18 +64,51 @@
         const app = firebase.initializeApp(firebaseConfig);
         const db = app.firestore();
 
-        const codigo = 'somar'
+        const codigo = window.location.hash.substr(1)
+        const esperado = []
         db.collection("desafios").doc(codigo).get()
             .then((docRef) => {
                 const data = docRef.data()
                 document.getElementById('descricao').textContent = data.descricao
                 const exemplos = []
-                debugger
                 data.esperado.forEach((e) => {
-                    exemplos.push(codigo+ '(' + JSON.stringify(e.input) + ') == ' + JSON.stringify(e.output))
+                    esperado.push(e)
+                    exemplos.push(codigo + '(' + JSON.stringify(e.input) + ') == ' + JSON.stringify(e.output))
                 })
                 document.getElementById('exemplos').textContent = exemplos.join('\n')
             })
+
+        document.querySelector('.resultado button').addEventListener('click', () => {
+            const src = document.querySelector('.editor').value
+            esperado.forEach((e) => {
+                const span = document.querySelector('.resultado span')
+                span.classList.remove('sucesso')
+                span.classList.remove('falha')
+
+                debugger
+                try {
+                    const fn = new Function([ 'input' ], `
+                        return ${codigo}(input)
+                        ${src}
+                    `)
+                    const res = fn(e.input)
+                    const atual = JSON.stringify(res)
+                    const esperado = JSON.stringify(e.output)
+                    if (atual === esperado) {
+                        span.classList.add('sucesso')
+                        span.innerHTML = 'Sucesso'
+                    } else {
+                        span.classList.add('falha')
+                        span.innerHTML = codigo + '(' + JSON.stringify(e.input) + ') <br />' +
+                            'resultado=' + atual + '<br />' +
+                            'Esperado=' + esperado
+                    }
+                } catch (e) {
+                    span.classList.add('falha')
+                    span.innerHTML = "Erro: " + e.message
+                }
+            })
+        })
     </script>
 
 </body>
